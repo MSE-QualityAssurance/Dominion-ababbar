@@ -41,16 +41,24 @@ class Player:
         self.buys: int = 1
 
     def choose_action_card(self) -> Optional[ActionCard]:
-        # Logic for player choosing an action card to play
-        pass
+        # Example: choose the first action card in hand
+        for card in self.hand:
+            if isinstance(card, ActionCard):
+                return card
+        return None
 
-    def choose_purchase(self) -> Optional[Card]:
-        # Logic for player choosing a card to buy
-        pass
+    def choose_purchase(self, game: Game) -> Optional[Card]:
+        # Example: choose the first affordable card in the supply
+        for card_name, card_stack in game.supply.items():
+            if card_stack and card_stack[0].cost <= self.money:
+                return card_stack[0]
+        return None
 
     def buy_card(self, card: Card, game: Game):
-        # Logic for buying a card from the supply
-        pass
+        if card.cost <= self.money and game.supply[card.name]:
+            self.money -= card.cost
+            purchased_card = game.supply[card.name].pop()
+            self.discard_pile.append(purchased_card)
 
     def discard_hand(self):
         # Move all cards from hand to discard pile
