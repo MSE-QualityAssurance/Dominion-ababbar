@@ -30,6 +30,8 @@ class ActionCard(Card):
         # Implement specific action card logic
         pass
 
+
+
 class Player:
     def __init__(self, name: str):
         self.name = name
@@ -47,14 +49,14 @@ class Player:
                 return card
         return None
 
-    def choose_purchase(self, game: Game) -> Optional[Card]:
+    def choose_purchase(self, game) -> Optional[Card]:
         # Example: choose the first affordable card in the supply
         for card_name, card_stack in game.supply.items():
             if card_stack and card_stack[0].cost <= self.money:
                 return card_stack[0]
         return None
 
-    def buy_card(self, card: Card, game: Game):
+    def buy_card(self, card: Card, game):
         if card.cost <= self.money and game.supply[card.name]:
             self.money -= card.cost
             purchased_card = game.supply[card.name].pop()
