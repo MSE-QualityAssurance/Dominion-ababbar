@@ -8,6 +8,27 @@ class Card:
         self.card_type = card_type
         # Add other properties as needed, like effects, etc.
 
+class TreasureCard(Card):
+    def __init__(self, name: str, cost: int, value: int):
+        super().__init__(name, cost, 'Treasure')
+        self.value = value  # Value represents the amount of money this card provides.
+
+    def play(self, player: 'Player', game: 'Game'):
+        player.money += self.value
+
+class VictoryCard(Card):
+    def __init__(self, name: str, cost: int, points: int):
+        super().__init__(name, cost, 'Victory')
+        self.points = points  # Points represents the victory points this card provides.
+
+class ActionCard(Card):
+    def __init__(self, name: str, cost: int):
+        super().__init__(name, cost, 'Action')
+
+    def play(self, player: 'Player', game: 'Game'):
+        # Implement specific action card logic
+        pass
+
 class Player:
     def __init__(self, name: str):
         self.name = name
